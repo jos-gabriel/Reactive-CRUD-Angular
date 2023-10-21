@@ -3,6 +3,7 @@ import { ProductoService } from '../services/producto.service';
 import { Producto } from '../domain/producto';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import { ExcelExportService } from '../services/excel-export.service';
 
 @Component({
   selector: 'jghp-app-admin',
@@ -15,7 +16,11 @@ export class AdminComponent implements OnInit {
 
   selectedProductId: number | null = null;
 
-  constructor(private productService: ProductoService, private router: Router) {}
+  constructor(
+    private productService: ProductoService,
+    private router: Router,
+    private excelExportService: ExcelExportService
+  ) {}
 
   ngOnInit() {
     this.productService.getProductosOrdered().subscribe((data: Producto[]) => {
@@ -47,7 +52,7 @@ export class AdminComponent implements OnInit {
   }
 
   exportDataToExcel() {
-
+    this.excelExportService.exportToExcel();
   }
 
   getSeverity(descuento: number) {

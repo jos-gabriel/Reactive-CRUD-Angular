@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Categoria } from '../domain/categoria';
 
 @Injectable({
@@ -15,7 +15,13 @@ export class CategoriaService {
     return this.http.get<Categoria[]>(this.apiUrl);
   }
 
-  getCategoria(id: number): Observable<Categoria> {
+  getCategoriasOrdered(): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(this.apiUrl).pipe(
+      map(categorias => categorias.sort((a, b) => a.nombre.localeCompare(b.nombre)))
+    );
+  }
+
+  getCategoriaById(id: number): Observable<Categoria> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Categoria>(url);
   }

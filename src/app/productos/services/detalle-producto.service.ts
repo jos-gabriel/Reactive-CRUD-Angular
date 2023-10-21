@@ -21,7 +21,7 @@ export class DetalleProductoService {
   obtenerDetallesDeProducto(productoId: number): Observable<any> {
     return this.productoService.getProducto(productoId).pipe(
       mergeMap((producto: Producto) => {
-        return this.categoriaService.getCategoria(producto.categoriaId).pipe(
+        return this.categoriaService.getCategoriaById(producto.categoriaId).pipe(
           mergeMap((categoria: Categoria) => {
             return this.departamentoService.getDepartamento(categoria.departamentoId).pipe(
               map((departamento: Departamento) => {

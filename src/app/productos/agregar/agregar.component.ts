@@ -26,7 +26,7 @@ export class AgregarComponent implements OnInit{
 
   ngOnInit() {
 
-    this.categoriaService.getCategorias().subscribe((categorias) => {
+    this.categoriaService.getCategoriasOrdered().subscribe((categorias) => {
       this.categorias = categorias;
     });
 

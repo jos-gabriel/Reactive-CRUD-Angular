@@ -28,7 +28,7 @@ export class EliminarComponent implements OnInit {
     this.productoService.getProducto(productoId).subscribe((producto) => {
       this.productoAEliminar = producto;
 
-      this.categoriaService.getCategorias().subscribe((categorias) => {
+      this.categoriaService.getCategoriasOrdered().subscribe((categorias) => {
         this.categorias = categorias;
       });
     });
