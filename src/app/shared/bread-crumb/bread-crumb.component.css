@@ -1,0 +1,15 @@
+.breadcrumbs {
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  padding: 15px 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px  grey;
+}
+
+.breadcrumb-divider {
+  margin: 0 10px;
+}
+
+.home-icon {
+  color: #883cae;
+}

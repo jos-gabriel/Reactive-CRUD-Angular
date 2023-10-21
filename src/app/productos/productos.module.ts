@@ -13,12 +13,12 @@ import { MessagesModule } from 'primeng/messages';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 const productosRouting: Routes = [
-  { path: '', component: AdminComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: 'agregar', component: AgregarComponent },
-  { path: 'detalles/:id', component: DetallesComponent },
-  { path: 'editar/:id', component: EditarComponent },
-  { path: 'eliminar/:id', component: EliminarComponent },
+  { path: '', component: AdminComponent, data: { breadcrumb: 'Administración' } },
+  { path: 'admin', component: AdminComponent, data: { breadcrumb: 'Administración' } },
+  { path: 'agregar', component: AgregarComponent, data: { breadcrumb: 'Agregar Producto' } },
+  { path: 'detalles/:id', component: DetallesComponent, data: { breadcrumb: 'Detalles de Producto' } },
+  { path: 'editar/:id', component: EditarComponent, data: { breadcrumb: 'Editar Producto' } },
+  { path: 'eliminar/:id', component: EliminarComponent, data: { breadcrumb: 'Eliminar Producto' } },
 ];
 
 
