@@ -1,0 +1,49 @@
+<div class="card-container">
+  <div class="card">
+    <div class="custom-toolbar">
+      <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-help" [routerLink]="['/agregar']"></button>
+      <button pButton pRipple label="Exportar a Excel" icon="pi pi-file-excel" class="p-button-success" (click)="exportDataToExcel()"></button>
+    </div>
+    <p-table
+      #dt
+      [value]="productos"
+      [paginator]="true"
+      [rowHover]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      styleClass="p-datatable-striped"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Descuento</th>
+          <th>Acción</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-producto>
+        <tr>
+          <td>{{ producto.nombre }}</td>
+          <td>{{ producto.precio | currency:'':'symbol':'1.2-2'}}</td>
+          <td *ngIf="producto.descuento > 0">
+            <p-badge [value]="(producto.descuento * 100).toFixed(0) + '%'"
+
+            *ngIf="producto.descuento != null && producto.descuento > 0 "
+
+            [severity]="(producto.descuento * 100) >= 50 ? 'danger' : 'success'"></p-badge>
+          </td>
+          <td *ngIf="producto.descuento <= 0"></td>
+          <td>
+            <div class="button-container">
+              <button pButton type="button" label="Detalles" class="custom-button" [routerLink]="['/detalles', producto.id]"></button>
+              <button pButton type="button" icon="pi pi-chevron-down" class="custom-button" (click)="setSelectedProductId(producto.id, contextMenu, $event)"></button>
+            </div>
+            <div>
+              <p-menu #contextMenu [model]="items" [popup]="true" [appendTo]="'body'"></p-menu>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

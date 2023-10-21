@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Producto } from '../domain/producto';
 
 @Injectable({
@@ -14,6 +15,17 @@ export class ProductoService {
   getProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.apiUrl);
   }
+
+  getProductosOrdered(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(this.apiUrl).pipe(
+      catchError(this.handleError),
+      map((productos: Producto[]) => {
+
+        return productos.sort((a, b) => a.nombre.localeCompare(b.nombre));
+      })
+    );
+  }
+
 
   getProducto(id: number): Observable<Producto> {
     const url = `${this.apiUrl}/${id}`;
@@ -31,4 +43,11 @@ export class ProductoService {
   deleteProducto(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+
+  private handleError(error: any): Observable<never> {
+    console.error('Error en la solicitud:', error);
+    return throwError(() => new Error('Ocurrió un error en la solicitud. Por favor, inténtalo de nuevo más tarde.'));
+  }
+
 }

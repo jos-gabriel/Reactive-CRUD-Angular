@@ -11,6 +11,11 @@ import { CardModule } from 'primeng/card';
 import { FormularioProductoComponent } from './formulario-producto/formulario-producto.component';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
+import { TagModule } from 'primeng/tag';
+import { BadgeModule } from 'primeng/badge';
 
 const productosRouting: Routes = [
   { path: '', component: AdminComponent, data: { breadcrumb: 'Administración' } },
@@ -42,6 +47,12 @@ const productosRouting: Routes = [
     CardModule,
     MessagesModule,
     ProgressSpinnerModule,
+    ReactiveFormsModule,
+    TableModule,
+    ButtonModule,
+    MenuModule,
+    TagModule,
+    BadgeModule,
   ]
 })
 export class ProductosModule { }
