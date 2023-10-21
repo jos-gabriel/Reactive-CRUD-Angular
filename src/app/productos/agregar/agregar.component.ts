@@ -7,7 +7,7 @@ import { CategoriaService } from '../services/categoria.service';
 import { Message } from 'primeng/api';
 
 @Component({
-  selector: 'app-agregar',
+  selector: 'jghp-app-agregar',
   templateUrl: './agregar.component.html',
 })
 export class AgregarComponent implements OnInit{

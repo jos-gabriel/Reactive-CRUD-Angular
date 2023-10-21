@@ -7,7 +7,7 @@ import { CategoriaService } from '../services/categoria.service';
 import { Message } from 'primeng/api';
 
 @Component({
-  selector: 'app-eliminar',
+  selector: 'jghp-app-eliminar',
   templateUrl: './eliminar.component.html',
 })
 export class EliminarComponent implements OnInit {

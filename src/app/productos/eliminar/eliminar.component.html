@@ -1,11 +1,11 @@
-<app-formulario-producto
+<jghp-app-formulario-producto
   [modo]="'eliminar'"
   [producto]="productoAEliminar"
   [categorias]="categorias"
   [titulo]="'Eliminar Producto'"
   (eliminar)="eliminarProducto($event)"
   (regresarClick)="regresar()"
-></app-formulario-producto>
+></jghp-app-formulario-producto>
 <div class="card">
   <p-messages [(value)]="messages" [closable]="true"></p-messages>
 </div>

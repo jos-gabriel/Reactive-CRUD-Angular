@@ -8,7 +8,7 @@ import { DetalleProductoService } from '../services/detalle-producto.service';
 import { Message } from 'primeng/api';
 
 @Component({
-  selector: 'app-editar',
+  selector: 'jghp-app-editar',
   templateUrl: './editar.component.html',
 })
 export class EditarComponent implements OnInit {

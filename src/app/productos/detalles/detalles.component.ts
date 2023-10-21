@@ -8,7 +8,7 @@ import { Producto } from '../domain/producto';
 
 
 @Component({
-  selector: 'app-detalles',
+  selector: 'jghp-app-detalles',
   templateUrl: './detalles.component.html'
 })
 export class DetallesComponent implements OnInit {

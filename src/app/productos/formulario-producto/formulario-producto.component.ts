@@ -4,7 +4,7 @@ import { Categoria } from '../domain/categoria';
 import { Producto } from '../domain/producto';
 
 @Component({
-  selector: 'app-formulario-producto',
+  selector: 'jghp-app-formulario-producto',
   templateUrl: './formulario-producto.component.html',
 })
 export class FormularioProductoComponent implements OnInit, OnChanges {
