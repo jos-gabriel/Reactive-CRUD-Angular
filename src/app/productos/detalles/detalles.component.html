@@ -1,39 +1,45 @@
-<div class="layout-content">
-  <p-card header="Detalles del Producto" [style]="{ width: '400px' }">
-    <ul>
-      <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-        <span class="label">Nombre:</span>
-        <span class="value">{{ producto?.nombre }}</span>
-      </li>
-      <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-        <span class="label">Marca:</span>
-        <span class="value">{{ producto?.marca }}</span>
-      </li>
-      <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-        <span class="label">Modelo:</span>
-        <span class="value">{{ producto?.modelo }}</span>
-      </li>
-      <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-        <span class="label">Precio:</span>
-        <span class="value">{{ producto?.precio | currency }}</span>
-      </li>
-      <li [ngStyle]="{ display: producto && producto.descuento > 0 ? 'block' : 'none' }">
-        <span class="label">Precio con Descuento:</span>
-        <span [ngStyle]="{ 'text-decoration': 'line-through', 'color': 'red', 'font-weight': 'bold' }" class="value">
-          {{ precioConDescuento | currency }}
-        </span>
-      </li>
-      <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-        <span class="label">Categoría:</span>
-        <span class="value">{{ categoria?.nombre }}</span>
-      </li>
-      <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-        <span class="label">Departamento:</span>
-        <span class="value">{{ departamento?.nombre }}</span>
-      </li>
-    </ul>
-    <ng-template pTemplate="footer">
-      <button (click)="regresar()">Regresar</button>
-    </ng-template>
-  </p-card>
+<div *ngIf="spinnerVisible" class="spinner-overlay">
+  <p-progressSpinner class="spinner"></p-progressSpinner>
+  <p class="texto-spinner">Recuperando información...</p>
+</div>
+<div *ngIf="!spinnerVisible">
+  <div class="layout-content">
+    <p-card header="Detalles del Producto" [style]="{ width: '400px' }">
+      <ul>
+        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
+          <span class="label">Nombre:</span>
+          <span class="value">{{ producto?.nombre }}</span>
+        </li>
+        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
+          <span class="label">Marca:</span>
+          <span class="value">{{ producto?.marca }}</span>
+        </li>
+        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
+          <span class="label">Modelo:</span>
+          <span class="value">{{ producto?.modelo }}</span>
+        </li>
+        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
+          <span class="label">Precio:</span>
+          <span class="value">{{ producto?.precio | currency }}</span>
+        </li>
+        <li [ngStyle]="{ display: producto && producto.descuento > 0 ? 'block' : 'none' }">
+          <span class="label">Precio con Descuento:</span>
+          <span [ngStyle]="{ 'text-decoration': 'line-through', 'color': 'red', 'font-weight': 'bold' }" class="value">
+            {{ precioConDescuento | currency }}
+          </span>
+        </li>
+        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
+          <span class="label">Categoría:</span>
+          <span class="value">{{ categoria?.nombre }}</span>
+        </li>
+        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
+          <span class="label">Departamento:</span>
+          <span class="value">{{ departamento?.nombre }}</span>
+        </li>
+      </ul>
+      <ng-template pTemplate="footer">
+        <button (click)="regresar()">Regresar</button>
+      </ng-template>
+    </p-card>
+  </div>
 </div>

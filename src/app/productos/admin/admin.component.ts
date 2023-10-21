@@ -4,6 +4,7 @@ import { Producto } from '../domain/producto';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ExcelExportService } from '../services/excel-export.service';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'jghp-app-admin',
@@ -11,6 +12,7 @@ import { ExcelExportService } from '../services/excel-export.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  spinnerVisible: boolean;
   productos: Producto[] = [];
   items: MenuItem[] | undefined;
 
@@ -19,10 +21,16 @@ export class AdminComponent implements OnInit {
   constructor(
     private productService: ProductoService,
     private router: Router,
-    private excelExportService: ExcelExportService
+    private excelExportService: ExcelExportService,
+    private spinnerService: SpinnerService,
   ) {}
 
   ngOnInit() {
+
+    this.spinnerService.getSpinnerVisibility().subscribe((visible) => {
+      this.spinnerVisible = visible;
+    });
+
     this.productService.getProductosOrdered().subscribe((data: Producto[]) => {
       this.productos = data;
     });

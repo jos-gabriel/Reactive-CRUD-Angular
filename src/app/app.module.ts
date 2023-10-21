@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { ProductosModule } from './productos/productos.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HtttpSpinnerInterceptorService } from './productos/services/http-spinner-interceptor.service';
 
 
 @NgModule({
@@ -23,7 +25,13 @@ import { SharedModule } from './shared/shared.module';
     ProductosModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HtttpSpinnerInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

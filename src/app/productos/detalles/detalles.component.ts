@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Categoria } from '../domain/categoria';
 import { Departamento } from '../domain/departamento';
 import { Producto } from '../domain/producto';
+import { SpinnerService } from '../services/spinner.service';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { Producto } from '../domain/producto';
   templateUrl: './detalles.component.html'
 })
 export class DetallesComponent implements OnInit {
+  spinnerVisible: boolean;
   producto: Producto;
   categoria: Categoria;
   departamento: Departamento;
@@ -20,10 +22,14 @@ export class DetallesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private detalleProductoService: DetalleProductoService,
-    private router: Router
+    private router: Router,
+    private spinnerService: SpinnerService,
   ) {}
 
   ngOnInit() {
+    this.spinnerService.getSpinnerVisibility().subscribe((visible) => {
+      this.spinnerVisible = visible;
+    });
     const productoId = +this.route.snapshot.paramMap.get('id');
     this.detalleProductoService.obtenerDetallesDeProducto(productoId).subscribe((detalles) => {
       this.producto = detalles.producto;

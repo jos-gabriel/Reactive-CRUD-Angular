@@ -6,12 +6,14 @@ import { ProductoService } from '../services/producto.service';
 import { CategoriaService } from '../services/categoria.service';
 import { DetalleProductoService } from '../services/detalle-producto.service';
 import { Message } from 'primeng/api';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'jghp-app-editar',
   templateUrl: './editar.component.html',
 })
 export class EditarComponent implements OnInit {
+  spinnerVisible: boolean;
   productoEditado: Producto;
   categorias: Categoria[];
   messages: Message[] | undefined;
@@ -24,9 +26,13 @@ export class EditarComponent implements OnInit {
     private categoriaService: CategoriaService,
     private detalleProductoService: DetalleProductoService,
     private router: Router,
+    private spinnerService: SpinnerService,
   ) {}
 
   ngOnInit() {
+    this.spinnerService.getSpinnerVisibility().subscribe((visible) => {
+      this.spinnerVisible = visible;
+    });
     const productoId = +this.route.snapshot.paramMap.get('id');
     this.detalleProductoService.obtenerDetallesDeProducto(productoId).subscribe((detalles) => {
       this.productoEditado = detalles.producto;
