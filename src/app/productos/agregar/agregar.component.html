@@ -1,1 +1,7 @@
-<p>Agregar Component</p>
+<app-formulario-producto
+  [modo]="'agregar'"
+  [categorias]="categorias"
+  [titulo]="'Agregar Producto'"
+  (guardar)="guardarProductoNuevo($event)"
+  (regresarClick)="regresar()"
+></app-formulario-producto>

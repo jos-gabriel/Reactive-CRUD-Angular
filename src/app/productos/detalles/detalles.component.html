@@ -1,1 +1,19 @@
-<p>Detalles Component</p>
+<p-card header="Detalles del Producto" [style]="{ width: '400px' }">
+  <ul>
+    <li *ngIf="producto"><strong>Nombre:</strong> {{ producto.nombre }}</li>
+    <li *ngIf="producto"><strong>Marca:</strong> {{ producto.marca }}</li>
+    <li *ngIf="producto"><strong>Modelo:</strong> {{ producto.modelo }}</li>
+    <li *ngIf="producto"><strong>Precio:</strong> {{ producto.precio | currency }}</li>
+    <li *ngIf="producto.descuento > 0">
+      <strong>Precio con Descuento:</strong>
+      <span [ngStyle]="{ 'text-decoration': 'line-through', 'color': 'red', 'font-weight': 'bold' }">
+        {{ precioConDescuento | currency }}
+      </span>
+    </li>
+    <li><strong>Categoría:</strong> {{ categoria.nombre }}</li>
+    <li><strong>Departamento:</strong> {{ departamento.nombre }}</li>
+  </ul>
+  <ng-template pTemplate="footer">
+    <button (click)="regresar()">Regresar</button>
+  </ng-template>
+</p-card>
