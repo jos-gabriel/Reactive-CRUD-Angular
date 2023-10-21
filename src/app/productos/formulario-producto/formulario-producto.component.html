@@ -1,0 +1,62 @@
+<div class="container">
+  <h2>{{ titulo }}</h2>
+
+  <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" formControlName="nombre" class="form-control" required maxlength="250">
+      <div *ngIf="formulario.get('nombre').hasError('required') && formulario.get('nombre').touched" class="text-danger">
+        El nombre es obligatorio.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="marca">Marca:</label>
+      <input type="text" id="marca" formControlName="marca" class="form-control" required maxlength="100">
+      <div *ngIf="formulario.get('marca').hasError('required') && formulario.get('marca').touched" class="text-danger">
+        La marca es obligatoria.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="modelo">Modelo:</label>
+      <input type="text" id="modelo" formControlName="modelo" class="form-control" required maxlength="100">
+      <div *ngIf="formulario.get('modelo').hasError('required') && formulario.get('modelo').touched" class="text-danger">
+        El modelo es obligatorio.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="precio">Precio:</label>
+      <input type="number" id="precio" formControlName="precio" class="form-control" required min="0" max="999999999">
+      <div *ngIf="formulario.get('precio').hasError('required') && formulario.get('precio').touched" class="text-danger">
+        El precio es obligatorio.
+      </div>
+      <div *ngIf="formulario.get('precio').hasError('min') && formulario.get('precio').touched" class="text-danger">
+        El precio debe ser mayor o igual a 0.
+      </div>
+      <div *ngIf="formulario.get('precio').hasError('max') && formulario.get('precio').touched" class="text-danger">
+        El precio debe ser menor o igual a 999,999,999.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="categoria">Categoría:</label>
+      <select id="categoria" formControlName="categoriaId" class="form-control" required>
+        <option value="" disabled>Selecciona una categoría</option>
+        <option *ngFor="let categoria of categorias" [value]="categoria.id">
+          {{ categoria.nombre }}
+        </option>
+      </select>
+      <div *ngIf="formulario.get('categoriaId').hasError('required') && formulario.get('categoriaId').touched" class="text-danger">
+        La categoría es obligatoria.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="disableButton">
+      {{ modo === 'eliminar' ? 'Eliminar' : 'Guardar' }}
+    </button>
+    <button type="button" (click)="regresar()" class="btn btn-secondary" [disabled]="disableButton">Regresar</button>
+  </form>
+</div>

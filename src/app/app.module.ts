@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ProductosModule } from './productos/productos.module';
 import { AppComponent } from './app.component';
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -18,7 +19,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    ProductosModule   
+    ProductosModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

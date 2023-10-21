@@ -7,6 +7,10 @@ import { EditarComponent } from './editar/editar.component';
 import { EliminarComponent } from './eliminar/eliminar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CardModule } from 'primeng/card';
+import { FormularioProductoComponent } from './formulario-producto/formulario-producto.component';
+import { MessagesModule } from 'primeng/messages';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 const productosRouting: Routes = [
   { path: '', component: AdminComponent },
@@ -24,16 +28,20 @@ const productosRouting: Routes = [
     AgregarComponent,
     DetallesComponent,
     EditarComponent,
-    EliminarComponent,    
+    EliminarComponent,
+    FormularioProductoComponent,
   ],
   exports:[
     RouterModule
   ],
   imports: [
-    CommonModule, 
+    CommonModule,
     RouterModule.forChild(productosRouting),
     FormsModule,
-    ReactiveFormsModule    
+    ReactiveFormsModule,
+    CardModule,
+    MessagesModule,
+    ProgressSpinnerModule,
   ]
 })
 export class ProductosModule { }
