@@ -11,10 +11,6 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) {}
 
-  getCategorias(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(this.apiUrl);
-  }
-
   getCategoriasOrdered(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(this.apiUrl).pipe(
       map(categorias => categorias.sort((a, b) => a.nombre.localeCompare(b.nombre)))

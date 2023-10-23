@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Departamento } from '../domain/departamento';
 
 @Injectable({
@@ -11,10 +11,12 @@ export class DepartamentoService {
 
   constructor(private http: HttpClient) {}
 
-  getDepartamentos(): Observable<Departamento[]> {
-    return this.http.get<Departamento[]>(this.apiUrl);
+  getDepartamentosOrdered(): Observable<Departamento[]> {
+    return this.http.get<Departamento[]>(this.apiUrl).pipe(
+      map(categorias => categorias.sort((a, b) => a.nombre.localeCompare(b.nombre)))
+    );
   }
-  getDepartamento(id: number): Observable<Departamento> {
+  getDepartamentoById(id: number): Observable<Departamento> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Departamento>(url);
   }

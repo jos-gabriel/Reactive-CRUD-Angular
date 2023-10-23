@@ -31,7 +31,7 @@ export class DetallesComponent implements OnInit {
       this.spinnerVisible = visible;
     });
     const productoId = +this.route.snapshot.paramMap.get('id');
-    this.detalleProductoService.obtenerDetallesDeProducto(productoId).subscribe((detalles) => {
+    this.detalleProductoService.detallesDeProducto(productoId).subscribe((detalles) => {
       this.producto = detalles.producto;
       this.categoria = detalles.categoria;
       this.departamento = detalles.departamento;

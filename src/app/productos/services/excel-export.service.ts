@@ -25,7 +25,7 @@ export class ExcelExportService {
     forkJoin({
       productos: this.productoService.getProductosOrdered(),
       categorias: this.categoriaService.getCategoriasOrdered(),
-      departamentos: this.departamentoService.getDepartamentos()
+      departamentos: this.departamentoService.getDepartamentosOrdered()
     })
       .pipe(
         switchMap(({ productos, categorias, departamentos }) => {
