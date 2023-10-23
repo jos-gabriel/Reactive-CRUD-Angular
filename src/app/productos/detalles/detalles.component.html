@@ -4,41 +4,68 @@
 </div>
 <div *ngIf="!spinnerVisible">
   <div class="layout-content">
-    <p-card header="Detalles del Producto" [style]="{ width: '400px' }">
-      <ul>
-        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-          <span class="label">Nombre:</span>
-          <span class="value">{{ producto?.nombre }}</span>
-        </li>
-        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-          <span class="label">Marca:</span>
-          <span class="value">{{ producto?.marca }}</span>
-        </li>
-        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-          <span class="label">Modelo:</span>
-          <span class="value">{{ producto?.modelo }}</span>
-        </li>
-        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-          <span class="label">Precio:</span>
-          <span class="value">{{ producto?.precio | currency }}</span>
-        </li>
-        <li [ngStyle]="{ display: producto && producto.descuento > 0 ? 'block' : 'none' }">
-          <span class="label">Precio con Descuento:</span>
-          <span [ngStyle]="{ 'text-decoration': 'line-through', 'color': 'red', 'font-weight': 'bold' }" class="value">
-            {{ precioConDescuento | currency }}
-          </span>
-        </li>
-        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-          <span class="label">Categoría:</span>
-          <span class="value">{{ categoria?.nombre }}</span>
-        </li>
-        <li [ngStyle]="{ display: producto ? 'block' : 'none' }">
-          <span class="label">Departamento:</span>
-          <span class="value">{{ departamento?.nombre }}</span>
-        </li>
-      </ul>
+    <p-card header="Detalles del Producto" class="flex justify-content-center">
+
+      <div *ngIf="producto">
+
+        <div class="field grid">
+          <div class="label col-fixed" style="width:150px">Nombre:</div>
+          <div class="col flex align-items-start ">
+            <div class="value">{{ producto.nombre }}</div>
+          </div>
+        </div>
+
+        <div class="field grid">
+          <div class="label col-fixed" style="width:150px">Marca:</div>
+          <div class="col flex align-items-start">
+            <div class="value">{{ producto.marca }}</div>
+          </div>
+        </div>
+
+        <div class="field grid">
+          <div class="label col-fixed" style="width:150px">Modelo:</div>
+          <div class="col flex align-items-start">
+            <div class="value">{{ producto.modelo }}</div>
+          </div>
+        </div>
+
+        <div class="field grid">
+          <div class="label col-fixed" style="width: 150px">Precio:</div>
+          <div class="col flex align-items-start">
+            <div class="value">
+              <span [ngStyle]="{'text-decoration': producto.descuento > 0 ? 'line-through' : 'none'}">
+                {{ producto.precio | currency }}
+              </span>
+              <span [ngStyle]="{'color': 'red', 'font-weight': 'bold'}" *ngIf="producto.descuento > 0">
+                {{ precioConDescuento | currency }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="field grid">
+          <div class="label col-fixed" style="width: 150px;">Categoría:</div>
+          <div class="col flex align-items-start">
+            <div class="value">{{ categoria?.nombre }}</div>
+          </div>
+        </div>
+
+        <div class="field grid">
+          <div class="label col-fixed" style="width: 150px;">Departamento:</div>
+          <div class="col flex align-items-start">
+            <div class="value">{{ departamento?.nombre }}</div>
+          </div>
+        </div>
+      </div>
+
       <ng-template pTemplate="footer">
-        <button (click)="regresar()">Regresar</button>
+        <div class="field grid flex justify-content-end">
+          <button
+          pButton
+          (click)="regresar()"
+          class="p-button-secondary p-button-raised p-button-rounded"
+          >Regresar</button>
+        </div>
       </ng-template>
     </p-card>
   </div>
