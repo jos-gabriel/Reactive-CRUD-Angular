@@ -1,62 +1,142 @@
-<div class="container">
-  <h2>{{ titulo }}</h2>
+<div class="layout-content">
+  <div class="card">
+    <div class="card-container flex justify-content-center">
 
-  <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+      <p-card>
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+          <h2>{{ titulo }}</h2>
 
-    <div class="form-group">
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" formControlName="nombre" class="form-control" required maxlength="250">
-      <div *ngIf="formulario.get('nombre').hasError('required') && formulario.get('nombre').touched" class="text-danger">
-        El nombre es obligatorio.
-      </div>
+          <div class="field grid">
+            <label for="nombre">Nombre<span class="text-danger col-fixed">*</span>:</label>
+            <div class="col flex flex-row-reverse">
+              <div>
+                <input
+                  type="text"
+                  id="nombre"
+                  formControlName="nombre"
+                  class="p-inputtext"
+                  [class.ng-dirty]="formulario.get('nombre').invalid && (formularioEnviado || formulario.get('nombre').touched)"
+                  required
+                  maxlength="250"
+                >
+                <div *ngIf="formulario.get('nombre').invalid && (formularioEnviado || formulario.get('nombre').touched)"
+                  class="text-danger"
+                >
+                  <ng-container *ngIf="formulario.get('nombre').hasError('required')">El campo es requerido</ng-container>
+                  <ng-container *ngIf="formulario.get('nombre').hasError('maxlength')">Máximo 250 caracteres</ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field grid">
+            <label for="marca">Marca<span class="text-danger col-fixed">*</span>:</label>
+            <div class="col flex flex-row-reverse">
+              <div>
+                <input
+                  id="marca"
+                  type="text"
+                  formControlName="marca"
+                  class="p-inputtext"
+                  [class.ng-dirty]="formulario.get('marca').invalid && (formularioEnviado || formulario.get('marca').touched)"
+                  required
+                  maxlength="100"
+                >
+                <div *ngIf="formulario.get('marca').invalid && (formularioEnviado || formulario.get('marca').touched)"
+                  class="text-danger"
+                >
+                  <ng-container *ngIf="formulario.get('marca').hasError('required')">El campo es requerido</ng-container>
+                  <ng-container *ngIf="formulario.get('marca').hasError('maxlength')">Máximo 100 caracteres</ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field grid">
+            <label for="modelo">Modelo<span class="text-danger">*</span>:</label>
+            <div class="col flex flex-row-reverse">
+              <div>
+                <input
+                  id="modelo"
+                  type="text"
+                  formControlName="modelo"
+                  class="p-inputtext"
+                  [class.ng-dirty]="formulario.get('modelo').invalid && (formularioEnviado || formulario.get('modelo').touched)"
+                  required
+                  maxlength="100"
+                >
+                <div *ngIf="formulario.get('modelo').invalid && (formularioEnviado || formulario.get('modelo').touched)"
+                  class="text-danger"
+                >
+                  <ng-container *ngIf="formulario.get('modelo').hasError('required')">El campo es requerido</ng-container>
+                  <ng-container *ngIf="formulario.get('modelo').hasError('maxlength')">Máximo 100 caracteres</ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field grid">
+            <label for="precio">Precio<span class="text-danger">*</span>:</label>
+            <div class="col flex flex-row-reverse">
+              <div>
+                <p-inputNumber
+                  mode="currency" currency="MXN"
+                  id="precio"
+                  formControlName="precio"
+                  [class.ng-dirty]="formulario.get('precio').invalid && (formularioEnviado || formulario.get('precio').touched)"
+                ></p-inputNumber>
+                <div *ngIf="formulario.get('precio').invalid && (formularioEnviado || formulario.get('precio').touched)"
+                  class="text-danger"
+                >
+                  <ng-container *ngIf="formulario.get('precio').hasError('required')">El campo es requerido</ng-container>
+                  <ng-container *ngIf="formulario.get('precio').hasError('min')">El valor mínimo permitido es 0</ng-container>
+                  <ng-container *ngIf="formulario.get('precio').hasError('max')">El valor máximo permitido es 999,999,999</ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field grid">
+            <label for="categoria">Categoría<span class="text-danger">*</span>:</label>
+            <div class="col flex flex-row-reverse">
+              <div>
+                <p-dropdown
+                  id="categoria"
+                  formControlName="categoriaId"
+                  [options]="groupedDepartamentos"
+                  [group]="true"
+                  [class.ng-dirty]="formulario.get('categoriaId').invalid && (formularioEnviado || formulario.get('categoriaId').touched)"
+                  placeholder="Selecciona una categoría"
+                ></p-dropdown>
+                <div *ngIf="formulario.get('categoriaId').invalid && (formularioEnviado || formulario.get('categoriaId').touched)"
+                  class="text-danger">
+                  El campo es requerido
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field grid flex justify-content-center">
+            <button
+              pButton
+              type="submit"
+              class="p-button p-button-primary p-button-raised p-button-rounded"
+              [disabled]="disableButton">
+              {{ modo === 'eliminar' ? 'Eliminar' : 'Guardar' }}
+            </button>
+            <span style="margin: 0 10px;"></span>
+            <button
+              pButton
+              type="button"
+              (click)="regresar()"
+              class="p-button p-button-secondary p-button-raised p-button-rounded"
+              [disabled]="disableButton">Regresar
+            </button>
+          </div>
+        </form>
+      </p-card>
+
     </div>
-
-    <div class="form-group">
-      <label for="marca">Marca:</label>
-      <input type="text" id="marca" formControlName="marca" class="form-control" required maxlength="100">
-      <div *ngIf="formulario.get('marca').hasError('required') && formulario.get('marca').touched" class="text-danger">
-        La marca es obligatoria.
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="modelo">Modelo:</label>
-      <input type="text" id="modelo" formControlName="modelo" class="form-control" required maxlength="100">
-      <div *ngIf="formulario.get('modelo').hasError('required') && formulario.get('modelo').touched" class="text-danger">
-        El modelo es obligatorio.
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="precio">Precio:</label>
-      <input type="number" id="precio" formControlName="precio" class="form-control" required min="0" max="999999999">
-      <div *ngIf="formulario.get('precio').hasError('required') && formulario.get('precio').touched" class="text-danger">
-        El precio es obligatorio.
-      </div>
-      <div *ngIf="formulario.get('precio').hasError('min') && formulario.get('precio').touched" class="text-danger">
-        El precio debe ser mayor o igual a 0.
-      </div>
-      <div *ngIf="formulario.get('precio').hasError('max') && formulario.get('precio').touched" class="text-danger">
-        El precio debe ser menor o igual a 999,999,999.
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="categoria">Categoría:</label>
-      <select id="categoria" formControlName="categoriaId" class="form-control" required>
-        <option value="" disabled>Selecciona una categoría</option>
-        <option *ngFor="let categoria of categorias" [value]="categoria.id">
-          {{ categoria.nombre }}
-        </option>
-      </select>
-      <div *ngIf="formulario.get('categoriaId').hasError('required') && formulario.get('categoriaId').touched" class="text-danger">
-        La categoría es obligatoria.
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary" [disabled]="disableButton">
-      {{ modo === 'eliminar' ? 'Eliminar' : 'Guardar' }}
-    </button>
-    <button type="button" (click)="regresar()" class="btn btn-secondary" [disabled]="disableButton">Regresar</button>
-  </form>
+  </div>
 </div>
+

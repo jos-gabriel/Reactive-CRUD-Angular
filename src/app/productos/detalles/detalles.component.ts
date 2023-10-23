@@ -27,6 +27,7 @@ export class DetallesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.spinnerService.show();
     this.spinnerService.getSpinnerVisibility().subscribe((visible) => {
       this.spinnerVisible = visible;
     });
@@ -35,7 +36,9 @@ export class DetallesComponent implements OnInit {
       this.producto = detalles.producto;
       this.categoria = detalles.categoria;
       this.departamento = detalles.departamento;
+      this.spinnerService.hide();
       this.calcularPrecioConDescuento();
+
     });
   }
 

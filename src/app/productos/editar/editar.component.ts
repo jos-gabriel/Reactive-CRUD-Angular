@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from '../domain/producto';
-import { Categoria } from '../domain/categoria';
 import { ProductoService } from '../services/producto.service';
-import { CategoriaService } from '../services/categoria.service';
 import { DetalleProductoService } from '../services/detalle-producto.service';
 import { Message } from 'primeng/api';
 import { SpinnerService } from '../services/spinner.service';
@@ -15,7 +13,7 @@ import { SpinnerService } from '../services/spinner.service';
 export class EditarComponent implements OnInit {
   spinnerVisible: boolean;
   productoEditado: Producto;
-  categorias: Categoria[];
+  groupedDepartamentos: { label: string, value: number, items: { label: string, value: number }[] }[] = [];
   messages: Message[] | undefined;
   modo: 'editar';
   titulo = 'Editar Producto';
@@ -23,22 +21,26 @@ export class EditarComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productoService: ProductoService,
-    private categoriaService: CategoriaService,
     private detalleProductoService: DetalleProductoService,
     private router: Router,
-    private spinnerService: SpinnerService,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit() {
+
+    this.spinnerService.show();
     this.spinnerService.getSpinnerVisibility().subscribe((visible) => {
       this.spinnerVisible = visible;
     });
     const productoId = +this.route.snapshot.paramMap.get('id');
-    this.detalleProductoService.obtenerDetallesDeProducto(productoId).subscribe((detalles) => {
+    this.detalleProductoService.detallesDeProducto(productoId).subscribe((detalles) => {
       this.productoEditado = detalles.producto;
-      this.categoriaService.getCategorias().subscribe((categorias) => {
-        this.categorias = categorias;
+
+      this.detalleProductoService.departamentosConCategoria().subscribe((data) => {
+        this.groupedDepartamentos = data;
+        this.spinnerService.hide();
       });
+
     });
   }
 
@@ -49,13 +51,18 @@ export class EditarComponent implements OnInit {
   guardarProductoEditado(producto: Producto) {
     this.productoService.updateProducto(producto).subscribe(
       () => {
-        this.messages = [{ severity: 'success', summary: 'Success', detail: 'Message Content' }];
-        this.router.navigate(['/admin']);
+        this.showSuccessMessage('Producto editado');
+
+        setTimeout(() => {
+          this.router.navigate(['/admin']);
+        }, 2000);
       },
       (error) => {
         console.error('Error al actualizar el producto:', error);
       }
     );
   }
-
+  showSuccessMessage(message: string) {
+    this.messages = [{ severity: 'success', summary: 'Éxito', detail: message }];
+  }
 }

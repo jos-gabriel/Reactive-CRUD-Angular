@@ -10,6 +10,7 @@ import { Producto } from '../domain/producto';
 export class FormularioProductoComponent implements OnInit, OnChanges {
   @Input() modo: 'agregar' | 'editar' | 'eliminar';
   @Input() categorias: Categoria[];
+  @Input() groupedDepartamentos: { label: string, value: number, items: { label: string, value: number }[] }[] = [];
   @Input() producto: Producto;
   @Input() titulo: string;
 
@@ -19,6 +20,7 @@ export class FormularioProductoComponent implements OnInit, OnChanges {
 
   disableButton: Boolean = false;
   formulario: FormGroup;
+  formularioEnviado = false;
 
   constructor(private fb: FormBuilder) {
     this.formulario = this.fb.group({
@@ -28,7 +30,7 @@ export class FormularioProductoComponent implements OnInit, OnChanges {
       modelo: ['', [Validators.required, Validators.maxLength(100)]],
       precio: ['', [Validators.required, Validators.min(0), Validators.max(999999999)]],
       descuento: [''],
-      categoriaId: [null, Validators.required],
+      categoriaId: ['', [Validators.required]]
     });
   }
 
@@ -74,6 +76,7 @@ export class FormularioProductoComponent implements OnInit, OnChanges {
 
 
   onSubmit() {
+    this.formularioEnviado = true;
     this.formulario.enable();
     if (this.formulario.valid) {
       if (this.modo === 'agregar') {

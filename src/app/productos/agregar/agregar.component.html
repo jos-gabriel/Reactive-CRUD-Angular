@@ -1,3 +1,9 @@
+<div class="card flex justify-content-end">
+  <p-messages
+    [(value)]="messages"
+    [closable]="true">
+  </p-messages>
+</div>
 <div *ngIf="spinnerVisible" class="spinner-overlay">
   <p-progressSpinner class="spinner"></p-progressSpinner>
   <p class="texto-spinner">Recuperando información...</p>
@@ -5,9 +11,10 @@
 <div *ngIf="!spinnerVisible">
   <jghp-app-formulario-producto
   [modo]="'agregar'"
-  [categorias]="categorias"
   [titulo]="'Agregar Producto'"
+  [groupedDepartamentos]="groupedDepartamentos"
   (guardar)="guardarProductoNuevo($event)"
   (regresarClick)="regresar()"
-  ></jghp-app-formulario-producto>
+  >
+</jghp-app-formulario-producto>
 </div>

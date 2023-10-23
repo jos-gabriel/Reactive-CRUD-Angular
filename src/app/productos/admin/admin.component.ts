@@ -31,8 +31,11 @@ export class AdminComponent implements OnInit {
       this.spinnerVisible = visible;
     });
 
+    this.spinnerService.show();
+
     this.productService.getProductosOrdered().subscribe((data: Producto[]) => {
       this.productos = data;
+      this.spinnerService.hide();
     });
 
     this.items = [

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Producto } from '../domain/producto';
-import { Categoria } from '../domain/categoria';
+import { DetalleProductoService } from '../services/detalle-producto.service';
 import { ProductoService } from '../services/producto.service';
-import { CategoriaService } from '../services/categoria.service';
 import { Message } from 'primeng/api';
 import { SpinnerService } from '../services/spinner.service';
 
@@ -13,28 +12,30 @@ import { SpinnerService } from '../services/spinner.service';
 })
 export class AgregarComponent implements OnInit{
   spinnerVisible: boolean;
-
-  productoEditado: Producto;
-  categorias: Categoria[];
   messages: Message[] | undefined;
   modo: 'editar';
   titulo = 'Editar Producto';
+  groupedDepartamentos: { label: string, value: number, items: { label: string, value: number }[] }[] = [];
 
   constructor(
     private productoService: ProductoService,
-    private categoriaService: CategoriaService,
+    private detalleProductoService: DetalleProductoService,
     private router: Router,
     private spinnerService: SpinnerService,
-  ) {}
+  ) {
+
+    this.spinnerService.show();
+    this.detalleProductoService.departamentosConCategoria().subscribe((data) => {
+      this.groupedDepartamentos = data;
+      this.spinnerService.hide();
+    });
+
+  }
 
   ngOnInit() {
     this.spinnerService.getSpinnerVisibility().subscribe((visible) => {
       this.spinnerVisible = visible;
     });
-    this.categoriaService.getCategoriasOrdered().subscribe((categorias) => {
-      this.categorias = categorias;
-    });
-
   }
 
   regresar(){
@@ -45,8 +46,11 @@ export class AgregarComponent implements OnInit{
 
     this.productoService.createProducto(producto).subscribe(
       () => {
-        this.messages = [{ severity: 'success', summary: 'Success', detail: 'Message Content' }];
-        this.router.navigate(['/admin']);
+        this.messages = [{ severity: 'success', summary: 'Success', detail: 'Producto agregado' }];
+        setTimeout(() => {
+          this.router.navigate(['/admin']);
+        }, 2000);
+
       },
       (error) => {
         console.error('Error al agregar el producto:', error);

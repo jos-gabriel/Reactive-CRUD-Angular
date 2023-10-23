@@ -16,6 +16,8 @@ import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { TagModule } from 'primeng/tag';
 import { BadgeModule } from 'primeng/badge';
+import { DropdownModule } from 'primeng/dropdown';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 const productosRouting: Routes = [
   { path: '', component: AdminComponent, data: { breadcrumb: 'Administración' } },
@@ -53,6 +55,8 @@ const productosRouting: Routes = [
     MenuModule,
     TagModule,
     BadgeModule,
+    DropdownModule,
+    InputNumberModule,
   ]
 })
 export class ProductosModule { }
